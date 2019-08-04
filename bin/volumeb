@@ -1,0 +1,19 @@
+
+#! /bin/sh
+Volume(){
+	vol=$(pulsemixer --get-volume | awk '{ print $1 }')
+	mute=$(pulsemixer --get-mute)	
+	if [[ "$mute" -eq "1" ]]; then
+		icon= #mute icon
+	else
+		if [[ "$vol" -lt "40" ]]; then
+			icon= #low volume icon
+		elif [[ "$vol" -gt "40" && "$vol" -lt "70" ]]; then
+			icon= #medium volume icon
+		elif [[ "$vol" -gt "70" ]]; then
+			icon= #high volume icon
+		fi
+	fi
+
+	echo "$icon $vol%"
+}
